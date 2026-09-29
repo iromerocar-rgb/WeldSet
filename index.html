@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1118">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="WeldSet">
+  <title>WeldSet · Ajustes de soldadura</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">W</div>
+      <div>
+        <h1>WeldSet</h1>
+        <p>Ajustes orientativos de soldadura</p>
+      </div>
+    </div>
+    <button class="icon-btn" id="aboutBtn" aria-label="Información">i</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <span class="eyebrow">Calculadora técnica · v1.0</span>
+      <h2>Configura el trabajo. Obtén un punto de partida razonado.</h2>
+      <p>Parámetros contrastados con tablas de ESAB, Lincoln Electric y Miller. Optimizada para uso con una mano en iPhone.</p>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <div>
+          <span class="step">1</span>
+          <h3>Proceso</h3>
+        </div>
+        <span class="hint">Toca para seleccionar</span>
+      </div>
+      <div class="process-grid" id="processGrid">
+        <button class="select-card active" data-process="AUTO">
+          <svg viewBox="0 0 64 44"><path d="M12 34L28 10l6 11 8-7 10 20" /><path d="M19 34h31" /></svg>
+          <span>Auto</span><small>Te recomienda</small>
+        </button>
+        <button class="select-card" data-process="MMA">
+          <svg viewBox="0 0 64 44"><path d="M10 35L39 8" /><path d="M35 7l8 8" /><path d="M43 27c5-4 8-3 11 2" /><path d="M38 31l4 4m2-8 4 4m1-8 4 4" /></svg>
+          <span>MMA</span><small>Electrodo</small>
+        </button>
+        <button class="select-card" data-process="MIG">
+          <svg viewBox="0 0 64 44"><path d="M12 10h24v10L25 35H11z" /><path d="M36 16l15 16" /><path d="M49 30l5 5" /><circle cx="55" cy="36" r="2"/></svg>
+          <span>MIG/MAG</span><small>Hilo continuo</small>
+        </button>
+        <button class="select-card" data-process="TIG">
+          <svg viewBox="0 0 64 44"><path d="M12 12l24 14" /><path d="M35 26l16 9" /><path d="M47 35l8 4" /><path d="M41 16l-4 9" /><path d="M46 18l-4 9" /></svg>
+          <span>TIG</span><small>Argón</small>
+        </button>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <div><span class="step">2</span><h3>Material y espesores</h3></div>
+      </div>
+      <label>Material
+        <select id="material">
+          <option value="STEEL">Acero al carbono</option>
+          <option value="SS304">Inoxidable 304 / 304L / 308</option>
+          <option value="SS316">Inoxidable 316 / 316L</option>
+          <option value="ALU">Aluminio</option>
+        </select>
+      </label>
+
+      <div class="two-col">
+        <label>Espesor pieza 1
+          <div class="unit-input"><input id="t1" type="number" min="0.5" max="50" step="0.1" value="3"><span>mm</span></div>
+        </label>
+        <label>Espesor pieza 2
+          <div class="unit-input"><input id="t2" type="number" min="0.5" max="50" step="0.1" value="3"><span>mm</span></div>
+        </label>
+      </div>
+
+      <label>Objetivo
+        <select id="intent">
+          <option value="GENERAL">Reparación / fabricación general</option>
+          <option value="STRUCTURAL">Unión estructural / bajo hidrógeno</option>
+          <option value="ROOT">Raíz / penetración prioritaria</option>
+          <option value="APPEARANCE">Control térmico / acabado</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <div><span class="step">3</span><h3>Tipo de unión</h3></div>
+        <span class="hint">Gráfico seleccionable</span>
+      </div>
+      <div class="joint-grid" id="jointGrid">
+        <button class="joint active" data-joint="BUTT">
+          <svg viewBox="0 0 80 58"><path class="plate" d="M5 24h29v12H5zM46 24h29v12H46z"/><path class="weld" d="M34 24l6 12 6-12z"/></svg>
+          <span>A tope</span>
+        </button>
+        <button class="joint" data-joint="TEE">
+          <svg viewBox="0 0 80 58"><path class="plate" d="M8 38h64v12H8zM34 8h12v30H34z"/><path class="weld" d="M34 38h-9l9-9zM46 38h9l-9-9z"/></svg>
+          <span>En T</span>
+        </button>
+        <button class="joint" data-joint="LAP">
+          <svg viewBox="0 0 80 58"><path class="plate" d="M8 31h44v12H8zM28 16h44v12H28z"/><path class="weld" d="M52 31h9l-9 9z"/></svg>
+          <span>Solape</span>
+        </button>
+        <button class="joint" data-joint="CORNER">
+          <svg viewBox="0 0 80 58"><path class="plate" d="M13 38h49v12H13zM50 8h12v30H50z"/><path class="weld" d="M50 38h-10l10-10z"/></svg>
+          <span>Esquina</span>
+        </button>
+      </div>
+
+      <div class="two-col">
+        <label>Posición
+          <select id="position">
+            <option value="FLAT">Plana / PA-PB</option>
+            <option value="HORIZONTAL">Horizontal / PC</option>
+            <option value="VERTICAL">Vertical / PF-PG</option>
+            <option value="OVERHEAD">Techo / PE</option>
+          </select>
+        </label>
+        <label>Máx. de tu máquina
+          <div class="unit-input"><input id="maxA" type="number" min="40" max="500" step="5" value="160"><span>A</span></div>
+        </label>
+      </div>
+    </section>
+
+    <button class="calculate" id="calculateBtn">Calcular ajustes</button>
+
+    <section id="result" class="results hidden">
+      <div class="result-title">
+        <div>
+          <span class="eyebrow">Recomendación</span>
+          <h2 id="rProcess">—</h2>
+        </div>
+        <span id="confidence" class="badge">—</span>
+      </div>
+
+      <div class="primary-result card glow">
+        <div class="consumable">
+          <span class="label">Consumible</span>
+          <strong id="rConsumable">—</strong>
+          <span id="rDiameter">—</span>
+        </div>
+        <div class="amp-block">
+          <span class="label">Ajuste inicial</span>
+          <strong><span id="rAmp">—</span> A</strong>
+          <span id="rRange">—</span>
+        </div>
+        <div class="meter">
+          <div class="meter-track"><div id="meterFill" class="meter-fill"></div><div id="meterPin" class="meter-pin"></div></div>
+          <div class="meter-labels"><span id="meterMin">—</span><span>rango fabricante</span><span id="meterMax">—</span></div>
+        </div>
+      </div>
+
+      <div class="param-grid" id="paramGrid"></div>
+
+      <div class="card">
+        <h3>Cómo empezar</h3>
+        <div id="guidance" class="guidance"></div>
+      </div>
+
+      <div id="warningBox" class="warning hidden"></div>
+
+      <div class="card">
+        <div class="section-head">
+          <h3>Trazabilidad del cálculo</h3>
+          <span class="badge subtle" id="traceBadge">mixto</span>
+        </div>
+        <div id="trace" class="trace"></div>
+      </div>
+    </section>
+
+    <section class="card sources-card">
+      <details>
+        <summary>Fuentes técnicas incorporadas</summary>
+        <div class="sources">
+          <a href="https://esab.com/es/eur_es/products-solutions/product/filler-metals/mild-steel/stick-electrodes-smaw/ok-46-00/" target="_blank" rel="noopener">
+            <strong>ESAB · OK 46.00 / E6013</strong><span>Diámetros, corriente, tensión y polaridad.</span>
+          </a>
+          <a href="https://ch-delivery.lincolnelectric.com/api/public/content/d0df5913fd7e4fef88756cee9dff7cfe?v=527d9351" target="_blank" rel="noopener">
+            <strong>Lincoln Electric · Excalibur 7018-1 MR</strong><span>Rangos de corriente por diámetro y polaridad.</span>
+          </a>
+          <a href="https://esab.com/ae/mea_en/products-solutions/product/filler-metals/stainless-steel/stick-electrodes-smaw/ok-61-30/" target="_blank" rel="noopener">
+            <strong>ESAB · OK 61.30 / E308L</strong><span>Rangos de corriente y tensión para inoxidable.</span>
+          </a>
+          <a href="https://esab.com/es/eur_es/products-solutions/product/filler-metals/mild-steel/mig-wires-tig-rods-gmaw-gtaw/ok-aristorod-12-50/" target="_blank" rel="noopener">
+            <strong>ESAB · OK AristoRod 12.50</strong><span>Rangos GMAW de A, V y velocidad de hilo.</span>
+          </a>
+          <a href="https://www.millerwelds.com/en-us/resources/knowledge-hub/mig-welding/how-to/mig-welding-setting-the-correct-parameters" target="_blank" rel="noopener">
+            <strong>Miller · MIG parameter guide</strong><span>Relación espesor-corriente y selección de hilo.</span>
+          </a>
+          <a href="https://www.millerwelds.com/en-us/resources/knowledge-hub/tig-welding/how-to/guide-to-tig-welding-basics" target="_blank" rel="noopener">
+            <strong>Miller · TIG basics</strong><span>Selección de tungsteno y práctica TIG.</span>
+          </a>
+        </div>
+      </details>
+    </section>
+
+    <p class="disclaimer">WeldSet proporciona puntos de partida. No sustituye WPS/PQR, procedimiento del fabricante, cualificación del soldador ni cálculo resistente de la unión.</p>
+  </main>
+</div>
+
+<dialog id="aboutDialog">
+  <button class="dialog-close" id="closeAbout">×</button>
+  <h2>Sobre WeldSet</h2>
+  <p>La app usa datos publicados por fabricantes para los límites del consumible. Cuando calcula un valor intermedio, lo marca como interpolado o heurístico.</p>
+  <p><strong>Importante:</strong> el comportamiento real depende de máquina, longitud de arco, preparación, gas, stick-out, limpieza, posición y técnica. Haz siempre una probeta antes de soldar la pieza definitiva.</p>
+  <h3>Instalar en iPhone</h3>
+  <p>Una vez alojada por HTTPS, abre la web en Safari → Compartir → <strong>Añadir a pantalla de inicio</strong>.</p>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>
